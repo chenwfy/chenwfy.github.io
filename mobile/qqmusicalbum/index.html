@@ -571,14 +571,6 @@
                  });
              },
              playMedia = function (idx, mode) {
-                 window.setTimeout(function () {
-                     var inWsmApp = (typeof WinShareMusic) === 'undefined' || WinShareMusic === undefined ? false : WinShareMusic;
-                     if (inWsmApp && !appCommandSended) {
-                         appCommandSended = true;
-                         window.location.href = 'winsharemusic://webviewcall.player_pause';
-                     }
-                 }, 50);
-
                  progress.css('width', 0);
                  curIconRender.attr('src', mediaDatas[idx].icon);
                  curTitleRender.html(mediaDatas[idx].title);
