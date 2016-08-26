@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>手写签名</title>
+    <meta name="keywords" content="手写签名">
+    <meta name="description" content="手写签名">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <script src="../js-lib/viewFixed.min.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+            list-style: none;
+            text-decoration: none;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-appearance: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -webkit-overflow-scrolling: touch;
+            font-family: Helvetica;
+            font-style: normal;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        html, body {
+            background-color: #f4f4f4;
+        }
+
+        .drawBox {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background-color: #fff;
+        }
+
+            .drawBox > .gridBox {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9;
+                width: 479px;
+                height: 479px;
+                border-left: 1px #e4e4e4 solid;
+                border-top: 1px #e4e4e4 solid;
+                border-color: rgba(228, 228, 228, .8);
+            }
+
+                .drawBox > .gridBox > span {
+                    float: left;
+                    position: relative;
+                    display: block;
+                    width: 239px;
+                    height: 239px;
+                    border-right: 1px #e4e4e4 solid;
+                    border-bottom: 1px #e4e4e4 solid;
+                    border-color: rgba(228, 228, 228, .8);
+                    line-height: 240px;
+                    text-align: center;
+                    color: rgba(228, 228, 228, .4);
+                    font-size: 100px;
+                }
+
+                    .drawBox > .gridBox > span:nth-child(2n+1) {
+                        width: 238px;
+                    }
+
+                    .drawBox > .gridBox > span::before,
+                    .drawBox > .gridBox > span::after {
+                        position: absolute;
+                        left: -46px;
+                        top: 119px;
+                        display: block;
+                        content: "";
+                        width: 330px;
+                        height: 0;
+                        border-top: 1px #e7e7e7 dashed;
+                        border-color: rgba(230, 230, 230, .8);
+                        line-height: 0;
+                        font-size: 0;
+                        overflow: hidden;
+                    }
+
+                    .drawBox > .gridBox > span::before {
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+
+                    .drawBox > .gridBox > span::after {
+                        -webkit-transform: rotate(-45deg);
+                        transform: rotate(-45deg);
+                    }
+
+            .drawBox > canvas {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 19;
+                width: 480px;
+                height: 480px;
+            }
+
+        .btnBox {
+            width: 100%;
+            height: 50px;
+            padding: 32px 0 0 0;
+        }
+
+            .btnBox > a {
+                float: left;
+                display: block;
+                margin-left: 32px;
+                width: 192px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 20px;
+                letter-spacing: 2px;
+                font-weight: 500;
+                border-radius: 10px;
+            }
+
+                .btnBox > a.submit {
+                    background-color: #2cbf6e;
+                    color: #fff;
+                }
+
+                .btnBox > a.clear {
+                    background-color: #d4d4d4;
+                    color: #787878;
+                }
+    </style>
+</head>
+<body>
+    <section class="drawBox">
+        <div class="gridBox">
+            <span>签</span>
+            <span>名</span>
+            <span>区</span>
+            <span>域</span>
+        </div>
+        <canvas id="canvas_drawArea"></canvas>
+    </section>
+
+    <div class="btnBox">
+        <a href="javascript:void(0);" class="submit">保存</a>
+        <a href="javascript:void(0);" class="clear">清空</a>
+    </div>
+
+    <!--页面脚本-->
+    <script src="../js-lib/zepto.min.js"></script>
+    <script src="../js-lib/fastclick.min.js"></script>
+    <script type="text/javascript">
+        var canvasDraw = (function ($) {
+            var width = 480,
+                height = 480,
+                canvas = null,
+                context = null,
+                lastPos = null,
+                init = function () {
+                    canvas = document.getElementById('canvas_drawArea');
+                    canvas.width = width;
+                    canvas.height = height;
+                    context = canvas.getContext('2d');
+                    context.lineJoin = 'round';
+                    context.lineWidth = 5;
+                    context.strokeStyle = '#000';
+                },
+                getPosition = function (e) {
+                    return { X: e.touches[0].pageX, Y: e.touches[0].pageY };
+                },
+                clearDraw = function () {
+                    context.clearRect(0, 0, width, height);
+                },
+                saveDraw = function () {
+                    //canvas to base64
+                    var dataUrl = canvas.toDataURL();
+                },
+                drawStart = function (e) {
+                },
+                drawing = function (e) {
+                    e.preventDefault();
+                    var curPos = getPosition(e);
+                    if (lastPos != null) {
+                        context.beginPath();
+                        context.moveTo(lastPos.X, lastPos.Y);
+                        context.lineTo(curPos.X, curPos.Y);
+                        context.stroke();
+                    }
+
+                    lastPos = curPos;
+                },
+                drawEnd = function (e) {
+                    e.preventDefault();
+                    lastPos = null;
+                },
+                bindEvents = function () {
+                    canvas.addEventListener('touchstart', drawStart, false);
+                    canvas.addEventListener('touchmove', drawing, false);
+                    canvas.addEventListener('touchend', drawEnd, false);
+                    $('a.clear').on('click', clearDraw);
+                };
+
+            return {
+                init: init,
+                bindEvents: bindEvents
+            };
+        })($);
+
+        $(function () {
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            FastClick.attach(document.body);
+
+            canvasDraw.init();
+            canvasDraw.bindEvents();
+        });
+    </script>
+</body>
+</html>
