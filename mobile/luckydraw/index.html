@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>积分中心 - 积分抽奖</title>
+    <meta name="keywords" content="积分中心">
+    <meta name="description" content="积分中心">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <script type="text/javascript">var rectWidth = document.documentElement.getBoundingClientRect().width; </script>
+    <script src="../js-lib/viewFixed.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!--我的积分-->
+    <header class="pc-header">
+        <label>我的积分：</label>
+        <span>3000</span>
+    </header>
+
+    <!--内容区域-->
+    <div class="pc-wrapper">
+        <ul>
+            <li class="img">
+                <span></span>
+            </li>
+            <li class="rule">
+                <h1>抽奖规则：</h1>
+                <p>
+                    1：点击“我也要砸”按钮后，选择一张“唱片”图案进行抽奖。
+                    <br>
+                    2：每砸一次消耗<b>30</b>积分。<a id="a_pointsRule" href="javascript:void(0);">(如何获取积分？)</a>
+                    <br>
+                    3：本次活动最终解释权归文轩音乐所有。
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <!--砸碟区-->
+    <section class="pc-disc-wrapper">
+        <div class="disc animated gold gold-01"></div>
+        <div class="disc animated black black-01"></div>
+        <div class="disc animated silver silver-01"></div>
+        <span class="tips tips-gold animated"></span>
+        <span class="tips tips-black animated"></span>
+        <span class="tips tips-silver animated"></span>
+        <div class="hammer animated"></div>
+    </section>
+
+    <!--我要砸碟按钮区域-->
+    <section class="pc-button-wrapper">
+        <a id="a_startSmash" href="javascript:void(0);">我也要砸</a>
+    </section>
+
+    <!--抽奖结果、信息表单等弹层-->
+    <section class="pc-layer">
+        <div class="result">
+            <ul>
+                <li class="img"><p id="p_resultImg"></p></li>
+                <li class="txt" id="li_resultTxt"></li>
+                <li class="btn"><a id="a_resultBtn" href="javascript:void(0);"></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!--页面脚本-->
+    <script src="../js-lib/zepto.min.js"></script>
+    <script src="../js-lib/fastclick.min.js"></script>
+    <script type="text/javascript">
+        //抽奖结果示例:
+        var resultDemo = [
+            { 'status': 0, 'message': '抱歉，您未中奖。' },
+            { 'status': 1, 'message': '恭喜您抽中二等奖！', 'award': { 'type': 'virtual', 'token': '123456', 'name': '20元优惠券', 'icon': 'images/img_award_001.jpg' } },
+            { 'status': 1, 'message': '恭喜您抽中一等奖！', 'award': { 'type': 'physical', 'token': '234567', 'name': 'IPHONE手机', 'icon': 'images/img_award_002.jpg' } }
+        ];
+
+        var transitionendEvents = 'webkitTransitionEnd mozTransitionEnd transitionend',
+            animateEndEvents = 'webkitAnimationEnd mozAnimationEnd animationend',
+
+            //页面请求
+            pageQuery = (function ($) {
+                var raffleQuery = function () {
+                    pageAnimations.showLoading();
+
+                    window.setTimeout(function () {
+                        var rIdx = Math.floor(Math.random() * 3),
+                        result = resultDemo[rIdx];
+
+                        if (result.status == 0) {
+                            $('#p_resultImg').removeClass('loading').addClass('noAward');
+                        } else {
+                            $('#p_resultImg').removeClass('loading').html('<img src="' + (result.award.icon || 'images/img_award.jpg') + '">');
+                        }
+
+                        $('#li_resultTxt').html(result.message);
+                        $('#a_resultBtn').show().html('我知道了').on('click', function () {
+                            window.location.reload();
+                        });
+                    }, 200);
+                }
+
+                return {
+                    raffleQuery: raffleQuery
+                };
+            })($),
+
+            //页面动画
+            pageAnimations = (function ($) {
+                var hammerSettings = { 'styles': ['hammer-gold', 'hammer-black', 'hammer-silver'], 'transitions': ['hammer-hitLeft', 'hammer-hitLeft', 'hammer-hitRight'] },
+                    discSettings = [{ 'stage1Class': 'gold-01', 'stage2Class': 'gold-02', 'stage3Class': 'gold-03' }, { 'stage1Class': 'black-01', 'stage2Class': 'black-02', 'stage3Class': 'black-03' }, { 'stage1Class': 'silver-01', 'stage2Class': 'silver-02', 'stage3Class': 'silver-03' }],
+                    disabledFlag = 'dis',
+                    layer = $('.pc-layer'),
+                    resultLayer = layer.find('.result'),
+                    formLayer = layer.find('.form'),
+                    discsClick = function (idx, discs, hammer, callback) {
+                        var sender = this;
+                        this.on('click', function () {
+                            if (!$(this).hasClass(disabledFlag)) {
+                                discs.addClass(disabledFlag);
+                                hammer.addClass(hammerSettings.styles[idx]).addClass(hammerSettings.transitions[idx]);
+                                window.setTimeout(function () { hammer.css('opacity', 0); }, 900);
+                                window.setTimeout(function () { discZoom(sender, idx, callback); }, 800);
+                            }
+                        });
+                    },
+                    discZoom = function (disc, idx, callback) {
+                        window.setTimeout(function () { disc.removeClass(discSettings[idx].stage2Class).addClass(discSettings[idx].stage3Class); }, 390);
+                        disc.addClass('discZoom').removeClass(discSettings[idx].stage1Class).addClass(discSettings[idx].stage2Class).on(animateEndEvents, function () {
+                            callback && callback();
+                        });
+                    },
+                    showLoading = function () {
+                        layer.show(0, function () {
+                            $('#p_resultImg').addClass('loading') && $('#li_resultTxt').html('<label>抽奖查询中，请稍候……</label>') && $('#a_resultBtn').hide() && resultLayer.addClass('show');
+                        });
+                    };
+
+                return {
+                    discsClick: discsClick,
+                    showLoading: showLoading
+                };
+            })($),
+
+            //页面事件
+            pageEvents = (function ($) {
+                var disabledFlag = 'dis',
+                    discWrapper = $('.pc-disc-wrapper'),
+                    discs = discWrapper.find('.disc').addClass(disabledFlag),
+                    hammer = discWrapper.find('.hammer'),
+                    startButton = $('#a_startSmash'),
+                    initPageEvents = function () {
+                        startButton.on('click', function () {
+                            $(this).parent().hide().remove();
+                            discs.removeClass(disabledFlag);
+                        });
+
+                        discs.each(function (idx, el) {
+                            pageAnimations.discsClick.call($(el), idx, discs, hammer, function () {
+                                pageQuery.raffleQuery();
+                            });
+                        });
+                    };
+
+                return {
+                    bind: initPageEvents
+                };
+            })($);
+
+        $(function () {
+            FastClick.attach(document.body);
+            pageEvents.bind();
+        });
+    </script>
+</body>
+</html>

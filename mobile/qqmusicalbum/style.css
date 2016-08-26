@@ -1,0 +1,976 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    list-style: none;
+    text-decoration: none;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-overflow-scrolling: touch;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+}
+
+html, body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.animated {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+}
+
+@keyframes rotateIcon {
+    from, to {
+        transform-origin: center center;
+        -ms-transform-origin: center center;
+        -webkit-transform-origin: center center;
+        -moz-transform-origin: center center;
+        -o-transform-origin: center center;
+    }
+
+    from {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotateIcon {
+    from, to {
+        transform-origin: center center;
+        -ms-transform-origin: center center;
+        -webkit-transform-origin: center center;
+        -moz-transform-origin: center center;
+        -o-transform-origin: center center;
+    }
+
+    from {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}
+
+.rotateIcon {
+    animation: rotateIcon 6s linear 0s infinite;
+    -webkit-animation: rotateIcon 6s linear 0s infinite;
+    -moz-animation: rotateIcon 6s linear 0s infinite;
+    -o-animation: rotateIcon 6s linear 0s infinite;
+}
+
+@keyframes upArrow {
+    0% {
+        top: 24px;
+        opacity: 1;
+    }
+
+    30% {
+        top: 8px;
+        opacity: 1;
+    }
+
+    60% {
+        top: 8px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 24px;
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes upArrow {
+    0% {
+        top: 24px;
+        opacity: 1;
+    }
+
+    30% {
+        top: 8px;
+        opacity: 1;
+    }
+
+    60% {
+        top: 8px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 24px;
+        opacity: 0;
+    }
+}
+
+/*
+------------------------------------
+迷你播放器样式
+------------------------------------
+*/
+.miniPlayer-bar {
+    position: fixed;
+    left: 0;
+    bottom: -64px;
+    right: 0;
+    z-index: 9;
+    height: 64px;
+    background-color: rgba(0, 0, 0, .9);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+    .miniPlayer-bar > p {
+        float: left;
+        margin-left: 14px;
+        margin-top: 7px;
+        width: 48px;
+        height: 48px;
+        background-color: #787878;
+        padding: 1px;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+        .miniPlayer-bar > p > img {
+            width: 48px;
+            height: 48px;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+    .miniPlayer-bar > div {
+        float: left;
+        width: 240px;
+        height: 48px;
+        margin-left: 12px;
+        margin-top: 8px;
+    }
+
+        .miniPlayer-bar > div > h1,
+        .miniPlayer-bar > div > h2 {
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .miniPlayer-bar > div > h1 {
+            height: 28px;
+            line-height: 28px;
+            color: #e4e4e4;
+            font-size: 20px;
+        }
+
+        .miniPlayer-bar > div > h2 {
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+    .miniPlayer-bar > a.ctrl {
+        float: left;
+        display: block;
+        width: 64px;
+        height: 60px;
+        margin-left: 12px;
+        margin-top: 2px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .miniPlayer-bar > a.play {
+        background-image: url(images/icon_play_white.png);
+        background-size: 48px 48px;
+    }
+
+    .miniPlayer-bar > a.pause {
+        background-image: url(images/icon_pause_white.png);
+        background-size: 48px 48px;
+    }
+
+    .miniPlayer-bar > a.more {
+        float: left;
+        display: block;
+        width: 64px;
+        height: 60px;
+        margin-left: 12px;
+        margin-top: 2px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url(images/icon_playlist.png);
+        background-size: 36px auto;
+    }
+
+    .miniPlayer-bar > span.progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        height: 0;
+        font-size: 0;
+        line-height: 0;
+        border-top: 1px #fff500 solid;
+        width: 0;
+    }
+
+/* 播放列表 */
+.miniPlayer-list {
+    position: fixed;
+    left: 0;
+    bottom: -448px;
+    right: 0;
+    z-index: 10;
+    height: 448px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+    .miniPlayer-list > div.top {
+        height: 63px;
+        background-color: rgba(0, 0, 0, .9);
+    }
+
+        .miniPlayer-list > div.top > span,
+        .miniPlayer-list > div.top > label {
+            float: left;
+            display: block;
+            width: auto;
+            height: 48px;
+            margin-top: 8px;
+            line-height: 48px;
+            text-align: left;
+        }
+
+        .miniPlayer-list > div.top > label {
+            margin-left: 16px;
+            color: #f3f3f3;
+            font-size: 28px;
+        }
+
+        .miniPlayer-list > div.top > span {
+            float: right;
+            margin-right: 16px;
+            color: #999;
+            font-size: 16px;
+        }
+
+    .miniPlayer-list > div.list {
+        height: 320px;
+        border-top: 1px #787878 solid;
+        border-bottom: 1px #787878 solid;
+        background-color: rgba(0, 0, 0, .8);
+        overflow: hidden;
+    }
+
+        .miniPlayer-list > div.list > ul {
+            width: 448px;
+            margin: 0 auto;
+        }
+
+            .miniPlayer-list > div.list > ul > li {
+                position: relative;
+                height: 63px;
+                border-top: 1px #666 solid;
+            }
+
+                .miniPlayer-list > div.list > ul > li:first-child {
+                    height: 64px;
+                    border-top: none;
+                }
+
+                .miniPlayer-list > div.list > ul > li > p {
+                    float: left;
+                    width: 384px;
+                    text-align: left;
+                }
+
+                    .miniPlayer-list > div.list > ul > li > p.title {
+                        height: 36px;
+                        line-height: 48px;
+                        color: #efefef;
+                        font-size: 18px;
+                    }
+
+                    .miniPlayer-list > div.list > ul > li > p.owner {
+                        height: 27px;
+                        line-height: 20px;
+                        color: #999;
+                        font-size: 14px;
+                    }
+
+                .miniPlayer-list > div.list > ul > li > span {
+                    position: absolute;
+                    top: 8px;
+                    right: 0;
+                    display: block;
+                    width: 48px;
+                    height: 48px;
+                }
+
+                .miniPlayer-list > div.list > ul > li.playing > span {
+                    background: url(images/icon_current.png) no-repeat center center;
+                    background-size: auto 24px;
+                }
+
+    .miniPlayer-list > div.bottom {
+        height: 63px;
+        background-color: rgba(0, 0, 0, .9);
+    }
+
+        .miniPlayer-list > div.bottom > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            line-height: 64px;
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 10px;
+        }
+
+/*
+------------------------------------
+分屏滑动式布局
+------------------------------------
+*/
+.pages-wrapper {
+    height: auto;
+    min-height: 100%;
+    background-color: #fff;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+    .pages-wrapper > .pager {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+        /* 满屏宽、半屏高的图片 */
+        .pages-wrapper > .pager > .half-img {
+            width: 100%;
+            height: 320px;
+        }
+
+        /* 目录、简介等竖排文字 */
+        .pages-wrapper > .pager > aside {
+            display: block;
+            width: 80px;
+            height: 200px;
+            border-right: 1px #d4d4d4 solid;
+            overflow: hidden;
+        }
+
+            .pages-wrapper > .pager > aside > h1,
+            .pages-wrapper > .pager > aside > h2 {
+                text-align: center;
+            }
+
+            .pages-wrapper > .pager > aside > h1 {
+                margin-top: -4px;
+                color: #999;
+                font-size: 48px;
+                font-weight: 600;
+            }
+
+            .pages-wrapper > .pager > aside > h2 {
+                margin-top: 32px;
+                text-align: center;
+                color: #999;
+                font-size: 20px;
+                letter-spacing: 2px;
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+        /* 目录(索引)列表 */
+        .pages-wrapper > .pager > nav {
+            display: block;
+            width: 320px;
+            height: auto;
+        }
+
+            .pages-wrapper > .pager > nav > a {
+                display: block;
+                height: 44px;
+                line-height: 44px;
+                text-align: left;
+                color: #666;
+                font-size: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+                .pages-wrapper > .pager > nav > a > i {
+                    position: relative;
+                    top: -4px;
+                    display: inline-block;
+                    margin: 0 8px;
+                    width: 4px;
+                    height: 4px;
+                    font-size: 0;
+                    line-height: 0;
+                    background-color: #999;
+                    -moz-border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .pages-wrapper > .pager > nav > a > a:active {
+                    background-color: rgba(204, 204, 204, .8);
+                }
+
+        /* 文档标题 */
+        .pages-wrapper > .pager > p.d-title {
+            height: 48px;
+            line-height: 48px;
+            color: #666;
+            font-size: 28px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 页面主标题 */
+        .pages-wrapper > .pager > h1.m-title {
+            height: 64px;
+            line-height: 64px;
+            color: #494767;
+            font-size: 48px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 页面副标题 */
+        .pages-wrapper > .pager > h2.s-title {
+            height: 48px;
+            line-height: 48px;
+            color: #494767;
+            font-size: 38px;
+            font-weight: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 带更多链接的文本 */
+        .pages-wrapper > .pager > article {
+            position: relative;
+            height: 192px;
+            overflow: hidden;
+        }
+
+            .pages-wrapper > .pager > article > p {
+                height: 144px;
+                line-height: 36px;
+                text-align: left;
+                color: #999;
+                font-size: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .pages-wrapper > .pager > article > a {
+                position: absolute;
+                right: 8px;
+                bottom: 0;
+                display: block;
+                width: 46px;
+                height: 46px;
+                border: 1px #f0f0f0 solid;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+            }
+
+                .pages-wrapper > .pager > article > a::before,
+                .pages-wrapper > .pager > article > a::after {
+                    position: absolute;
+                    left: 7px;
+                    top: 22px;
+                    display: block;
+                    content: "";
+                    width: 32px;
+                    height: 1px;
+                    background-color: #fff;
+                    overflow: hidden;
+                }
+
+                .pages-wrapper > .pager > article > a::after {
+                    left: 7px;
+                    top: 22px;
+                    -webkit-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                }
+
+        /* 音频媒体文件播放链接 */
+        .pages-wrapper > .pager > a.media {
+            display: block;
+            width: 144px;
+            padding-left: 48px;
+            padding-right: 8px;
+            height: 46px;
+            background: #494767 url(images/icon_play_white.png) no-repeat 8px center;
+            background-size: 32px 32px;
+            line-height: 46px;
+            text-align: left;
+            color: #fff;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+    /* 分屏样式：全屏背景图，空内容 */
+    .pages-wrapper > .empty {
+    }
+
+    /* 分屏样式：上半屏图片，下半屏目录（索引） */
+    .pages-wrapper > .index {
+    }
+
+        .pages-wrapper > .index > .half-img {
+            height: 320px;
+        }
+
+        .pages-wrapper > .index > aside,
+        .pages-wrapper > .index > nav {
+            position: absolute;
+            top: 360px;
+        }
+
+        .pages-wrapper > .index > aside {
+            left: 16px;
+        }
+
+        .pages-wrapper > .index > nav {
+            top: 352px;
+            right: 16px;
+        }
+
+    /* 分屏样式：全屏背景图，上半部分全屏宽内容 */
+    .pages-wrapper > .top {
+    }
+
+        .pages-wrapper > .top > aside {
+            position: absolute;
+            top: 96px;
+            left: 16px;
+        }
+
+        .pages-wrapper > .top > p.d-title {
+            position: absolute;
+            top: 88px;
+            right: 16px;
+            width: 320px;
+            text-align: left;
+        }
+
+        .pages-wrapper > .top > article {
+            position: absolute;
+            top: 136px;
+            right: 16px;
+            width: 320px;
+        }
+
+    /* 分屏样式：全屏背景图，左上角部分半屏宽内容 */
+    .pages-wrapper > .top-left {
+    }
+
+        .pages-wrapper > .top-left > h1.m-title,
+        .pages-wrapper > .top-left > h2.s-title {
+            position: absolute;
+            left: 16px;
+            top: 96px;
+            width: 448px;
+            text-align: left;
+        }
+
+        .pages-wrapper > .top-left > h2.s-title {
+            top: 160px;
+        }
+
+        .pages-wrapper > .top-left > a.media {
+            position: absolute;
+            left: 16px;
+            top: 208px;
+        }
+
+        .pages-wrapper > .top-left > article {
+            position: absolute;
+            top: 264px;
+            left: 16px;
+            width: 200px;
+        }
+
+    /* 分屏样式：全屏背景图，右上角部分半屏宽内容 */
+    .pages-wrapper > .top-right {
+    }
+
+        .pages-wrapper > .top-right > h1.m-title,
+        .pages-wrapper > .top-right > h2.s-title {
+            position: absolute;
+            right: 16px;
+            top: 96px;
+            width: 448px;
+            text-align: right;
+        }
+
+        .pages-wrapper > .top-right > h2.s-title {
+            top: 160px;
+        }
+
+        .pages-wrapper > .top-right > a.media {
+            position: absolute;
+            right: 16px;
+            top: 208px;
+        }
+
+        .pages-wrapper > .top-right > article {
+            position: absolute;
+            top: 264px;
+            right: 16px;
+            width: 200px;
+        }
+
+    /* 默认保留分屏样式：播放全部、策划编辑、关注微信公众账号等 */
+    .pages-wrapper > .last {
+        background-color: #f7f7f7;
+    }
+
+        .pages-wrapper > .last > footer {
+            width: 448px;
+            margin: 0 auto;
+        }
+
+            .pages-wrapper > .last > footer > img.logo {
+                width: 300px;
+                height: 300px;
+            }
+
+            .pages-wrapper > .last > footer > div {
+                width: 400px;
+                height: 128px;
+                margin: 0 auto;
+            }
+
+                .pages-wrapper > .last > footer > div > img {
+                    float: left;
+                    display: block;
+                    width: 128px;
+                    height: 128px;
+                    margin-left: 32px;
+                }
+
+                .pages-wrapper > .last > footer > div > p {
+                    float: left;
+                    width: 208px;
+                    height: 128px;
+                    margin-left: 32px;
+                }
+
+                    .pages-wrapper > .last > footer > div > p > label {
+                        display: block;
+                        width: 100%;
+                        height: 32px;
+                        line-height: 32px;
+                        text-align: left;
+                        color: #666;
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+            .pages-wrapper > .last > footer > a.playerAll {
+                display: block;
+                width: 126px;
+                height: 46px;
+                padding-right: 36px;
+                margin: 64px auto auto auto;
+                border: 1px #666 solid;
+                -moz-border-radius: 24px;
+                -webkit-border-radius: 24px;
+                border-radius: 24px;
+                text-align: center;
+                line-height: 46px;
+                color: #787878;
+                font-size: 24px;
+                font-weight: 600;
+                background: url(images/icon_play.png) no-repeat 120px center;
+                background-size: 32px 32px;
+            }
+
+            .pages-wrapper > .last > footer > p.owners {
+                width: 316px;
+                height: 48px;
+                margin: 32px auto auto auto;
+                border: 4px #f0f0f0 solid;
+                line-height: 48px;
+                text-align: center;
+                color: #999;
+                font-size: 18px;
+            }
+
+/*
+--------
+IPHONE4小屏处理
+--------
+*/
+
+.pages-2x > .index > aside > h1,
+.pages-2x > .top > aside > h1 {
+    margin-top: -12px;
+}
+
+.pages-2x > .index > aside > h2,
+.pages-2x > .top > aside > h2 {
+    margin-top: 24px;
+}
+
+
+/* 分屏样式：上半屏图片，下半屏目录（索引） */
+.pages-samll > .index > .half-img {
+    height: 240px;
+}
+
+.pages-samll > .index > aside,
+.pages-samll > .index > nav {
+    position: absolute;
+    top: 260px;
+}
+
+.pages-samll > .index > nav {
+    top: 252px;
+}
+
+/* 分屏样式：全屏背景图，上半部分全屏宽内容 */
+.pages-samll > .top > aside {
+    top: 48px;
+}
+
+.pages-samll > .top > p.d-title {
+    top: 40px;
+}
+
+.pages-samll > .top > article {
+    top: 90px;
+}
+
+/* 分屏样式：全屏背景图，左上角部分半屏宽内容 */
+.pages-samll > .top-left > h1.m-title,
+.pages-samll > .top-left > h2.s-title {
+    top: 48px;
+}
+
+.pages-samll > .top-left > h2.s-title {
+    top: 112px;
+}
+
+.pages-samll > .top-left > a.media {
+    top: 160px;
+}
+
+.pages-samll > .top-left > article {
+    top: 216px;
+}
+
+/* 分屏样式：全屏背景图，右上角部分半屏宽内容 */
+.pages-samll > .top-right > h1.m-title,
+.pages-samll > .top-right > h2.s-title {
+    top: 48px;
+}
+
+.pages-samll > .top-right > h2.s-title {
+    top: 112px;
+}
+
+.pages-samll > .top-right > a.media {
+    top: 160px;
+}
+
+.pages-samll > .top-right > article {
+    top: 216px;
+}
+
+/* 默认保留分屏样式：播放全部、策划编辑、关注微信公众账号等 */
+.pages-samll > .last > footer > img.logo {
+    width: 240px;
+    height: 240px;
+}
+
+/* 页码、滑动指示箭头、静音开关浮动层 */
+.bottons-layer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    z-index: 3;
+    height: 48px;
+}
+
+    .bottons-layer > label {
+        float: left;
+        margin-left: 16px;
+        margin-top: 8px;
+        display: block;
+        width: auto;
+        height: 32px;
+        line-height: 32px;
+        color: #999;
+        font-size: 20px;
+    }
+
+    .bottons-layer > span {
+        position: absolute;
+        top: 24px;
+        left: 50%;
+        margin-left: -14px;
+        display: block;
+        width: 30px;
+        height: 16px;
+        background: url(images/icon_arrow_up.png) no-repeat center center;
+        background-size: 100% 100%;
+        animation: upArrow 1.6s linear 0s infinite;
+        -webkit-animation: upArrow 1.6s linear 0s infinite;
+    }
+
+    .bottons-layer > a {
+        position: relative;
+        float: right;
+        margin-top: 8px;
+        margin-right: 16px;
+        display: block;
+        width: 32px;
+        height: 32px;
+        background: url(images/icon_mute.png) no-repeat center center;
+        background-size: 100% 100%;
+    }
+
+        .bottons-layer > a.mute::after {
+            position: absolute;
+            left: 1px;
+            top: 15px;
+            content: "";
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #959595;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+
+/* 更多文本查看层 */
+.text-layer {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, .9);
+}
+
+    .text-layer > div.content {
+        position: absolute;
+        left: 16px;
+        top: 32px;
+        bottom: 96px;
+        width: 448px;
+        overflow: hidden;
+    }
+
+        .text-layer > div.content > p {
+            text-align: left;
+            line-height: 32px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: normal;
+            word-break: break-word;
+        }
+
+    .text-layer > a.close {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+        height: 63px;
+        border-top: 1px #666 solid;
+        background-color: rgba(0, 0, 0, .9);
+        text-align: center;
+        /*line-height: 63px;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 10px;*/
+    }
+
+        .text-layer > a.close > span {
+            position: relative;
+            display: block;
+            margin: 8px auto auto auto;
+            width: 48px;
+            height: 48px;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+            .text-layer > a.close > span::before,
+            .text-layer > a.close > span::after {
+                position: absolute;
+                left: 6px;
+                top: 23px;
+                display: block;
+                width: 36px;
+                height: 2px;
+                background-color: #fff;
+                content: "";
+                overflow: hidden;
+                -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+            }
+
+            .text-layer > a.close > span::after {
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
