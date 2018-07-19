@@ -115,9 +115,11 @@
         .content > .img-box {
             border: 5px solid #f7f7f7;
             margin: .5rem 0;
+            background: url(images/icon_picture_r.jpg) no-repeat center center;
+            text-indent: 0;
             height: auto;
+            min-height: 128px;
             overflow: hidden;
-            text-indent: 0;            
         }
 
             .content > .img-box > img {
@@ -133,6 +135,9 @@
             font-weight: 600;
         }
     </style>
+    <script type="text/javascript">
+        window.Echo = (function (window, document, undefined) { 'use strict'; var store = [], offset, throttle, poll; var _inView = function (el) { var coords = el.getBoundingClientRect(); return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (window.innerHeight || document.documentElement.clientHeight) + parseInt(offset)); }; var _pollImages = function () { for (var i = store.length; i--;) { var self = store[i]; if (_inView(self)) { self.src = self.getAttribute('data-echo'); store.splice(i, 1); } } }; var _throttle = function () { clearTimeout(poll); poll = setTimeout(_pollImages, throttle); }; var init = function (obj) { var nodes = document.querySelectorAll('[data-echo]'); var opts = obj || {}; offset = opts.offset || 0; throttle = opts.throttle || 250; for (var i = 0; i < nodes.length; i++) { store.push(nodes[i]); } _throttle(); if (document.addEventListener) { window.addEventListener('scroll', _throttle, false); } else { window.attachEvent('onscroll', _throttle); } }; return { init: init, render: _throttle }; })(window, document);
+    </script>
 </head>
 <body>
     <section class="cover">
@@ -146,13 +151,13 @@
                 有人说去一次大西北就等于十次旅行。是的，当你开车穿越过草原，沙漠，冰川的时候仿佛尝尽了人生百态。这是个神奇的地方，当你见识过笔直的天路、辽阔的草原和无边的沙漠时，不禁让人赞叹大自然的魔力……西北大环线，一生必去的一场旅行。
             </p>
             <div class="img-box">
-                <img src="images/map_01.jpg" />
+                <img data-echo="images/map_01.jpg">
             </div>
             <div class="img-box">
-                <img src="images/map_02.jpg" />
+                <img data-echo="images/map_02.jpg" />
             </div>
             <div class="img-box">
-                <img src="images/map_03.jpg" />
+                <img data-echo="images/map_03.jpg" />
             </div>
             <p>
                 大环线所有景点路况较好，全程大半地区均已高速路覆盖。从湖泊到荒漠戈壁，深入无人区的处女地，自然风景与人文景观相结合，纯净的自然风光和多样的野生动物，绝对流连忘返。
@@ -208,6 +213,11 @@
     <section class="margin padding">
         <h1 class="main-title">准备工作</h1>
         <article class="content noIndent">
+            <h6 class="marked">里程、费用预算：</h6>
+            <p>
+                全程预计总里程约5000KM（主路线 + 城市、景点往返）<br>
+                2大1小1车，预计总花费6500+ （油费：约2500，过路费：约1800，食宿门票等：约2200+）
+            </p>
             <h6 class="marked">衣物零食等：</h6>
             <p>
                 1：墨镜、披肩（简直就是凹造型神器）、纸巾湿巾请备足、防晒霜、防晒衣、帽子以及各种你能想到的抗晒的东西，大西北的太阳不是盖的。<br>
@@ -323,7 +333,7 @@
                 二郎剑景区位于青海湖东南部，因距离西宁151km，这里又被称为151基地，景区大门位于109国道边，现在已成为青海湖最重要的景点之一。<br>
                 门票100元，交通车20（可以不坐）<br>
                 不建议进景区游玩，有钱有时间的除外哈<br>
-                有网游攻略中提到：二郎剑（景区、收费站、服务区...不太清楚具体标识）附近有一条盘山公路，可以开车直接到最高点，远眺、俯瞰青海湖景色。有观景台，当地人收费，大概10元/人。
+                有网友攻略中提到：二郎剑（景区、收费站、服务区...不太清楚具体标识）附近有一条盘山公路，可以开车直接到最高点，远眺、俯瞰青海湖景色。有观景台，当地人收费，大概10元/人。
             </p>
             <h6 class="marked">青海湖：</h6>
             <p>
@@ -334,7 +344,7 @@
             <p>
                 安排好住宿后，沿湖游玩，去湖边玩水，拍照等。如果时间凑巧，可以去鸟岛（7、8月份可以不去了，没什么鸟儿了）<br>
                 特别推荐：湖边日落、日出（早上6:30左右）<br>
-                特别提醒：青海湖是盐湖，玩水后，记得及时将身体上的水擦拭干净，以免风干日晒后形成盐体结晶灼伤皮肤。
+                特别提醒：青海湖是盐湖，玩水后，记得及时将身上的水擦拭干净，以免风干日晒后形成盐体结晶灼伤皮肤。
             </p>
             <h6 class="marked">黑马河住宿：</h6>
             <p>
@@ -358,7 +368,7 @@
                 黑马河（观赏日出，解决早餐）- 翻越橡皮山（海拔3817） - 进入柴达木盆地 - 茶卡盐湖（午饭） - 德令哈 - 柯鲁克湖 - 外星人遗址 - 托素湖 - 大柴旦（住宿）
             </p>
             <div class="img-box">
-                <img src="images/d4_map_1.jpg" />
+                <img data-echo="images/d4_map_1.jpg" />
             </div>
             <h6 class="marked">橡皮山：</h6>
             <p>
@@ -374,8 +384,8 @@
             </p>
             <h6 class="marked">德令哈周边：</h6>
             <p>
-                德令哈柯鲁克湖可鲁克湖在柴达木盆地的东北部，美丽湖泊，就象是一面巨大宝镜，镶嵌在戈壁、草原之间。<br>
-                外星人遗址在托素湖边，这一片荒芜土地，岩洞里、湖边都散落着几十万年的铁管和神秘金属，这样的情景科学家们无法解释这样的现象……
+                德令哈柯鲁克湖在柴达木盆地的东北部，美丽湖泊，就象是一面巨大宝镜，镶嵌在戈壁、草原之间。<br>
+                外星人遗址在托素湖边，这一片荒芜土地，岩洞里、湖边都散落着几十万年的铁管和神秘金属，这样的情景科学家们无法解释这样的现象，所以外星人就躺枪了。
             </p>
             <h6 class="marked">大柴旦住宿：</h6>
             <p>
@@ -403,17 +413,17 @@
                 路线三：<br>
                 大柴旦（解决早餐） - 最美公路G3011 - 乌素特(水上)雅丹地质公园 - 敦煌市（宿）- 沙洲夜市（晚餐）<br>
                 说明：<br>
-                目前雅丹魔鬼城有三个可以供选择：（青海）南八仙雅丹魔鬼城、（青海）水上雅丹魔鬼城、敦煌雅丹魔鬼城，比较推荐的是南八仙雅丹魔鬼城，相对水上雅丹里程没有那么长，相对敦煌雅丹魔鬼城缩短里程的同时还原生态、无门票；<br>
+                目前雅丹魔鬼城有三个可以供选择：（青海）南八仙雅丹魔鬼城（未开发，免费）、（青海）水上雅丹魔鬼城（原生态，据说已开始收费，单边约100KM）、敦煌雅丹魔鬼城（收费），比较推荐的是南八仙雅丹魔鬼城，相对水上雅丹里程没有那么长，相对敦煌雅丹魔鬼城缩短里程的同时还原生态、无门票；<br>
                 可以根据实际情况选择路线
             </p>
             <div class="img-box">
-                <img src="images/d5_map_1.jpg" />
+                <img data-echo="images/d5_map_1.jpg" />
             </div>
             <div class="img-box">
-                <img src="images/d5_map_2.jpg" />
+                <img data-echo="images/d5_map_2.jpg" />
             </div>
             <div class="img-box">
-                <img src="images/d5_map_3.jpg" />
+                <img data-echo="images/d5_map_3.jpg" />
             </div>
             <h6 class="marked">敦煌住宿：</h6>
             <p>
@@ -444,7 +454,7 @@
             </p>
             <h6 class="marked">温馨提示：</h6>
             <p>
-                1：如果天气较好，下午5点以前不要去鸣沙山（太晒了）。<br>
+                1：如果天气晴朗，下午5点以前最好不要去鸣沙山（太晒了）。<br>
                 2：鸣沙山景区下午6点半以后不能再进园。已经进去的可以玩到晚上10：30 （可观大漠日落）。<br>
                 3：鸣沙山景区里面好像不能露营。景区外附近有专门的露营基地。<br>
                 4：当天可以考虑住宿在景区附近，方便第二天一大早进园看日出。
@@ -460,7 +470,7 @@
                 鸣沙山（日出）- 瓜州 - 玉门 - 嘉峪关 - 七彩丹霞地质公园 - 张掖(宿)
             </p>
             <div class="img-box">
-                <img src="images/d7_map_1.jpg" />
+                <img data-echo="images/d7_map_1.jpg" />
             </div>
             <h6 class="marked">瓜州：</h6>
             <p>
@@ -468,7 +478,8 @@
             </p>
             <h6 class="marked">张掖丹霞地质公园：</h6>
             <p>
-                门票：75
+                门票：75<br>
+                观光车、热气球另外收费
             </p>
             <h6 class="marked">张掖：</h6>
             <p>
@@ -490,12 +501,11 @@
                 张掖(早餐) - 民乐 - 祁连大草原 - 门源万里花海 - 西宁（午饭） - 兰州（宿）
             </p>
             <div class="img-box">
-                <img src="images/d8_map_1.jpg" />
+                <img data-echo="images/d8_map_1.jpg" />
             </div>
             <h6 class="marked">兰州：</h6>
             <p>
-                景点：<br>
-                中山桥、黄河母亲雕像群<br>
+                顺便游览：中山桥、黄河母亲雕像群<br>
                 住宿：<br>
                 1：全季酒店（兰州天水南路店）  ¥178<br>
                 2：蘭莓精品酒店（兰州鑫源店） 含早 351元
@@ -506,7 +516,7 @@
             </p>
             <h6 class="marked">特别提醒：</h6>
             <p>
-                根据网友经验，在兰州市区开车一定一定一定要注意安全。兰州路上车辆普遍比较毛躁，交通比较混乱，千万注意安全。
+                根据网友经验，在兰州市区开车一定一定一定要注意安全。兰州交通比较混乱，车子都很毛躁，千万注意安全。
             </p>
         </article>
     </section>
@@ -519,7 +529,7 @@
                 兰州（早餐） - 成都
             </p>
             <div class="img-box">
-                <img src="images/d9_map_1.jpg" />
+                <img data-echo="images/d9_map_1.jpg" />
             </div>
             <p>
                 赶路为主，全程高速。午饭、晚饭就在服务区将就解决了吧
@@ -531,94 +541,94 @@
         <h1 class="main-title">随便选几张照片</h1>
         <article class="content noIndent">
             <div class="img-box">
-                <img src="images/img_00001.jpeg" />
+                <img data-echo="images/img_00001.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00002.jpeg" />
+                <img data-echo="images/img_00002.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00003.jpeg" />
+                <img data-echo="images/img_00003.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00004.jpeg" />
+                <img data-echo="images/img_00004.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00005.jpeg" />
+                <img data-echo="images/img_00005.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00006.jpeg" />
+                <img data-echo="images/img_00006.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00007.jpeg" />
+                <img data-echo="images/img_00007.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00008.jpeg" />
+                <img data-echo="images/img_00008.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00009.jpeg" />
+                <img data-echo="images/img_00009.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00010.jpeg" />
+                <img data-echo="images/img_00010.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00011.jpeg" />
+                <img data-echo="images/img_00011.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00012.jpeg" />
+                <img data-echo="images/img_00012.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00013.jpeg" />
+                <img data-echo="images/img_00013.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00014.jpeg" />
+                <img data-echo="images/img_00014.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00015.jpeg" />
+                <img data-echo="images/img_00015.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00016.jpeg" />
+                <img data-echo="images/img_00016.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00017.jpeg" />
+                <img data-echo="images/img_00017.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00018.jpeg" />
+                <img data-echo="images/img_00018.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00019.jpeg" />
+                <img data-echo="images/img_00019.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00020.jpeg" />
+                <img data-echo="images/img_00020.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00021.jpeg" />
+                <img data-echo="images/img_00021.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00022.jpeg" />
+                <img data-echo="images/img_00022.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00023.jpeg" />
+                <img data-echo="images/img_00023.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00024.jpeg" />
+                <img data-echo="images/img_00024.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00025.jpeg" />
+                <img data-echo="images/img_00025.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00026.jpeg" />
+                <img data-echo="images/img_00026.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00027.jpeg" />
+                <img data-echo="images/img_00027.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00028.jpeg" />
+                <img data-echo="images/img_00028.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00029.jpeg" />
+                <img data-echo="images/img_00029.jpeg" />
             </div>
             <div class="img-box">
-                <img src="images/img_00030.jpeg" />
+                <img data-echo="images/img_00030.jpeg" />
             </div>
         </article>
     </section>
@@ -632,5 +642,12 @@
             </p>
         </article>
     </section>
+
+    <script type="text/javascript">
+        Echo.init({
+            offset: 100,
+            throttle: 50
+        });
+    </script>
 </body>
 </html>
